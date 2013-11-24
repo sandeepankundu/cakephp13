@@ -1,0 +1,1 @@
+2013-10-08 14:37:18 Warning: Warning (2): mysql_connect() [http://php.net/function.mysql-connect]: Access denied for user 'user'@'localhost' (using password: YES) in [/Users/sandeepankundu/Sites/cakephp13/cake/libs/model/datasources/dbo/dbo_mysql.php, line 561]
