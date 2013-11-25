@@ -19,6 +19,7 @@ class ConsumeShell extends shell{
 		/*$lastId = $this->listPosts();
 		$this->hr();
 */
+		
 		date_default_timezone_set('UTC');
 		$dttime = date("Y-m-d H:i:s");
 		// 'Add' test
@@ -40,12 +41,20 @@ class ConsumeShell extends shell{
 		));
 		$this->out('Post '.$lastId.' updated successfully');
 		$this->hr();
-			
+
 		$lastId = $this->listPosts();
 		$this->hr();
+		
+		//$this->out('lastId '. $lastId);
+
+		// 'View' test
+		$this->displaypost($lastId);
+		$this->out('GET '.$lastId.' fetched successfully');
+		$this->hr();
+		
 
 		// 'delete' test
-		$this->request('posts/delete/'.$lastId.'add.json', 'DELETE');
+		$this->request('posts/delete/'.$lastId.'.json', 'DELETE');
 
 		$this->out('Post '.$lastId.' deleted successfully');
 		$this->hr();
@@ -79,10 +88,19 @@ class ConsumeShell extends shell{
 		return $body;
 	}
 
-	protected function listposts(){
-		$response = json_decode(($this->request('posts/index.json')));
-		//$this->out('2. listPosts -> '.$response);
+	protected function displaypost($id){
+		$response = json_decode( $this->request('posts/view/'.$id.'.json', 'GET') );
 		if($response == null) $this->out(' its null');
+		if($response != null){
+			$this->out($response->Post->title . ' : ' . $response->Post->body );
+		}
+		
+		return $response;
+	}
+
+	protected function listposts(){
+		$response = json_decode($this->request('posts/index.json'));
+		//if($response == null) $this->out(' its null');
 		
 		$lastId = null;
 		foreach ($response as $item) {

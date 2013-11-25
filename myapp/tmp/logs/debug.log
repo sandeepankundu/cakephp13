@@ -188,3 +188,5 @@
 2013-11-25 04:17:51 Notice: Notice (8): Undefined variable: content in [/Users/sandeepankundu/Sites/cakephp13/myapp/views/posts/showme.ctp, line 5]
 2013-11-25 04:26:37 Notice: Notice (8): Undefined variable: posts in [/Users/sandeepankundu/Sites/cakephp13/myapp/views/posts/json/index.ctp, line 2]
 2013-11-25 04:26:37 Notice: Notice (8): Undefined variable: posts in [/Users/sandeepankundu/Sites/cakephp13/myapp/views/posts/json/index.ctp, line 9]
+2013-11-25 05:31:05 Notice: Notice (8): Undefined variable: id in [/Users/sandeepankundu/Sites/cakephp13/myapp/controllers/posts_controller.php, line 69]
+2013-11-25 05:39:13 Notice: Notice (8): Undefined variable: id in [/Users/sandeepankundu/Sites/cakephp13/myapp/controllers/posts_controller.php, line 69]
