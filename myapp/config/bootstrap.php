@@ -48,3 +48,12 @@
  * Inflector::rules('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
  *
  */
+
+/**
+* SANDEEPAN
+* Comment: Defined the API access limits
+*/
+Configure::write('API', array(
+	'maximum' => 1,
+	'time'=> '2 minutes' 
+));

@@ -9,3 +9,18 @@ create table users(
 );
 
 /* select * from users; */
+
+alter table users 
+add column active tinyint unsigned not null default 1;
+
+
+
+alter table users
+add column token char(40) default null,
+add column token_used datetime default null,
+add column token_uses int not null default 0,
+add unique key token(token);
+
+/*
+select * from users;
+*/

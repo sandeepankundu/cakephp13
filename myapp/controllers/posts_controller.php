@@ -4,9 +4,7 @@ class PostsController extends AppController{
 
 	public $components = array('RequestHandler', 'Security');
 
-	protected function _isJSON(){
-		return $this->RequestHandler->ext == 'json';
-	}
+	
 
 	public function beforeFilter(){
 		parent::beforeFilter();
@@ -29,16 +27,18 @@ class PostsController extends AppController{
 		}
 	}
 
-	public function _restLogin($credentials){
-		$login = array();
-		foreach ( array('username' ,'password' ) as $field ) {
-			$value = $credentials[$field];
-			if($field == 'password' && !empty($value)){
-				$value = $this->Auth->password($value);
+	protected function _restLogin($credentials){
+
+		$model = $this->Auth->getModel();
+		try{
+			$id = $model->useToken($credentials['username']);
+			if(empty($id)){
+				$this->redirect(null, 503);
 			}
-			$login[ $this->Auth->fields[$field]] = $value;
+		}catch(Exception $e){
+			$id = null;
 		}
-		if( !$this->Auth->login($login)){
+		if(empty($id) || !$this->Auth->login(strval($id))){
 			$this->Security->blackhole($this, 'login');
 		}
 	}
