@@ -5,12 +5,19 @@ class ConsumeShell extends shell{
 	protected static $baseUrl;
 	protected static $httpSocket;
 
+	protected static $user;
+	protected static $password;
+
 	public function main(){
-		if(empty($this->args) || count($this->args) !=1){
-			$this->err('USAGE: cake consume <baseUrl>');
+		if(empty($this->args) || count($this->args) !=3){
+			$this->err('USAGE: cake consume <baseUrl> <user> <password>');
 			$this->_stop();
 		}
-		self::$baseUrl = $this->args[0];
+		list(self::$baseUrl, self::$user , self::$password ) = $this->args;
+
+		/*$this->out(' base url : '. self::$baseUrl);
+		$this->out(' user : '. self::$user);
+		$this->out(' password : '. self::$password);*/
 		$this->test();
 	}
 
@@ -24,10 +31,10 @@ class ConsumeShell extends shell{
 		$dttime = date("Y-m-d H:i:s");
 		// 'Add' test
 		$this->request('posts/add.json', 'POST', array(
-			'title' => 'New Post AA3 ' .  $dttime,
+			'title' => 'New Post SANKU ' .  $dttime,
 			'body' => 'Body for my new post ' .  $dttime
 		));
-		$this->out('Added/inserted new Post Successfully');
+		//$this->out('Added/inserted new Post Successfully');
 		$this->hr();
 		
 		$lastId = $this->listPosts();
@@ -73,11 +80,15 @@ class ConsumeShell extends shell{
 		$this->out('requesting : '. self::$baseUrl .'/'.$url );
 		$body = self::$httpSocket->request( array(
 			'method' => $method ,
-			'uri' => self::$baseUrl.'/'.$url ,
-			'body' => $data 
+			'uri' 	 => self::$baseUrl.'/'.$url ,
+			'body' 	 => $data ,
+			'auth'   => array(
+				'user' => self::$user,
+				'pass' => self::$password
+			)
 		));
 
-		if($body ===false || self::$httpSocket->response['status']['code'] !=200){
+		if($body === false || self::$httpSocket->response['status']['code'] !=200){
 			$error = 'Error while performing '. $method.' to '.$url;
 			if($body !== false){
 				$error = '['.self::$httpSocket->response['status']['code'].']'.$error;

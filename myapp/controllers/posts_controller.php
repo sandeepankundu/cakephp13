@@ -2,7 +2,7 @@
 
 class PostsController extends AppController{
 
-	public $components = array('RequestHandler');
+	public $components = array('RequestHandler', 'Security');
 
 	protected function _isJSON(){
 		return $this->RequestHandler->ext == 'json';
@@ -10,27 +10,45 @@ class PostsController extends AppController{
 
 	public function beforeFilter(){
 		parent::beforeFilter();
-		if($this->_isJSON() && !$this->RequestHandler->isGet()){
 
+		if($this->_isJSON()){
+			$this->Auth->allow($this->action);
+			$this->Security->loginOptions  = array(
+				'type'  => 'basic',
+				'realm' => 'My rest services',
+				'login' => '_restLogin'
+			);
+			$this->Security->requireLogin();//$this->action);
+			$this->Security->validatePost = false;
+		}
+
+		if($this->_isJSON() && !$this->RequestHandler->isGet()){
 			if( empty($this->data) && !empty($_POST)){
 				$this->data[$this->modelClass] = $_POST;
 			}
 		}
+	}
 
-		//$this->RequestHandler->setContent('json','text/x-json');  
-        //$this->layout = 'default'; 
+	public function _restLogin($credentials){
+		$login = array();
+		foreach ( array('username' ,'password' ) as $field ) {
+			$value = $credentials[$field];
+			if($field == 'password' && !empty($value)){
+				$value = $this->Auth->password($value);
+			}
+			$login[ $this->Auth->fields[$field]] = $value;
+		}
+		if( !$this->Auth->login($login)){
+			$this->Security->blackhole($this, 'login');
+		}
 	}
 
 	public function beforeRender(){
 		parent::beforeRender();
 		if($this->_isJSON()){
-
-			//$this->RequestHandler->setContent('json', 'application/json');
 			Configure::write('debug',0);
 			//Configure::write('debug',2);
 			$this->disableCache();
-
-			
 		}
 	}
 
@@ -38,14 +56,8 @@ class PostsController extends AppController{
 		if($this->_isJSON() && !$this->RequestHandler->isGet() ){
 			$this->redirect(null, 400);
 		}
-		
 		$posts = $this->Post->find('all');
-		
-		
 		$this->set(compact('posts'));
-		//$this->set( 'aPosts', $posts);
-
-
 	}
 
 

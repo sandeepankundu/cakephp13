@@ -1,22 +1,22 @@
 <?php 
 
 class AppController extends Controller{
-	/*
+	
 	public $components = array(
 			'Auth' =>  array(
 				'authorize' => 'controller',
 				//,'allowedActions' =>  //list names of method thar needs to be public
-				'loginRedirect' => array(
+				/*'loginRedirect' => array(
 					'admin' => false,
 					'controller' => 'users',
 					'action' => 'dashboard'
 					//'action' => 'login'
 				 ),
 				'loginError' => 'Invalid acoount specified',
-				'authError' => 'You dont have the right permission'
+				'authError' => 'You dont have the right permission'*/
 			),
 			'Session' 
-	);*/
+	);
 /*
 	public function beforeFilter(){
 		$user = $this->Auth->user();
