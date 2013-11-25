@@ -1,7 +1,7 @@
 <?php 
 
 class AppController extends Controller{
-
+	/*
 	public $components = array(
 			'Auth' =>  array(
 				'authorize' => 'controller',
@@ -16,24 +16,24 @@ class AppController extends Controller{
 				'authError' => 'You dont have the right permission'
 			),
 			'Session' 
-	);
-
+	);*/
+/*
 	public function beforeFilter(){
 		$user = $this->Auth->user();
 		if(!empty($user)){
 			Configure::write('User',$user[ $this->Auth->getModel()->alias] );
 		}
-		/*
-		if($this->Auth->getModel()->hasField('active')){
-			$this->Auth->userScope =  array('active' => 1 );
-		}*/
-	}
+		
+		//if($this->Auth->getModel()->hasField('active')){
+		//	$this->Auth->userScope =  array('active' => 1 );
+		//}
+	}*/
 	
 
 	public function isAuthorized(){
 		return true;
 	}
-
+/*
 	public function beforeRender(){
 		$user = $this->Auth->user();
 		if(!empty($user)){
@@ -41,6 +41,6 @@ class AppController extends Controller{
 		}
 		$this->set(compact('user'));
 	}
-
+*/
 }
 ?>
