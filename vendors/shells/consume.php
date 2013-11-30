@@ -44,6 +44,7 @@ class ConsumeShell extends shell{
 			$this->hr();
 			$this->test();
 		}
+		
 		/*
 		if(count($this->args) == 3){
 			list(self::$baseUrl, self::$user , self::$password ) = $this->args;
@@ -56,7 +57,8 @@ class ConsumeShell extends shell{
 			)));
 			if(!empty($authresponse) && $authresponse->success == true){
 				//$this->out(' success  access token:' . $authresponse->token );
-				$token = $authresponse->token ;
+				self::$token = $authresponse->token ;
+				//$this->out('token : '.self::$token);
 				$this->test();
 			}
 			else{
@@ -72,15 +74,29 @@ class ConsumeShell extends shell{
 		$this->hr();
 		$this->out('lastid : '.$lastId);
 */
+		$this->hr();
+		/*
+		// 'Add Photo'  test
+		$responsebody = $this->request('photos/add.json', 'POST', array(
+			'File' => '/resource/login-small-a.png'
+		));
+		$this->hr();
+		$this->out( $responsebody);
+		$this->out('Added/inserted new photo Successfully');
+		$this->hr();
+
+		*/
+
 		date_default_timezone_set('UTC');
 		$dttime = date("Y-m-d H:i:s");
-		// 'Add' test
+		// 'Add Post'  test
 		$this->request('posts/add.json', 'POST', array(
 			'title' => 'New Post SANKU ' .  $dttime,
 			'body' => 'Body for my new post ' .  $dttime
 		));
 		$this->out('Added/inserted new Post Successfully');
 		$this->hr();
+
 		/*
 		$lastId = $this->listPosts();
 		$this->hr();

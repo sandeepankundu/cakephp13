@@ -1,12 +1,17 @@
 <?php 
 
 class AppController extends Controller{
+
+	protected function myDebugLog($msg){
+		$this->log( $msg, 'mydebug');
+	}
 	
 	public $components = array(
 			'Auth' =>  array(
-				'authorize' => 'controller',
+				'authorize' => 'controller'
+				//,
 				//,'allowedActions' =>  //list names of method thar needs to be public
-				'loginRedirect' => array(
+				/*'loginRedirect' => array(
 					'admin' => false,
 					'controller' => 'users',
 					//'action' => 'dashboard'
@@ -14,6 +19,7 @@ class AppController extends Controller{
 				 ),
 				'loginError' => 'Invalid acoount specified',
 				'authError' => 'You dont have the right permission'
+				*/
 			),
 			'Session' 
 	);
@@ -30,6 +36,7 @@ class AppController extends Controller{
 	}*/
 	
 	protected function _isJSON(){
+		//$this->log('got here _isJSON', 'debug');
 		return $this->RequestHandler->ext == 'json';
 	}
 
