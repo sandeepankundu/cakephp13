@@ -1,6 +1,0 @@
-<IfModule mod_rewrite.c>
-   RewriteEngine On
-   RewriteBase /~sandeepankundu/cakephp13/
-   RewriteRule    ^$ myapp/webroot/    [L]
-   RewriteRule    (.*) myapp/webroot/$1 [L]
-</IfModule>
