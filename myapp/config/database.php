@@ -94,4 +94,14 @@ class DATABASE_CONFIG {
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
+	/*var $default = array(
+		'driver' => 'mysql',
+		'persistent' => false,
+		'host' => 'sql313.byethost7.com',
+		'login' => 'b7_13783848',
+		'password' => 'samsung',
+		'database' => 'b7_13783848_cakephp01',
+		'prefix' => '',
+		'encoding' => 'utf8',
+	);*/
 }
