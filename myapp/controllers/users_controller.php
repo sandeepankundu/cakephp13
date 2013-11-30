@@ -5,10 +5,16 @@ class UsersController extends AppController{
 
 	public function beforeFilter(){
 		parent::beforeFilter();
+		
+		$this->myDebugLog("beforeFilter");
+
 		$this->Auth->allow('add');
 		$this->Auth->allow('login');
 	}
 	public function token(){
+		
+		$this->myDebugLog("token");
+
 		$token = sha1(String::uuid());
 		$this->User->id = $this->Auth->user('id');
 		if(!$this->User->saveField('token', $token)){
@@ -19,7 +25,9 @@ class UsersController extends AppController{
 	}
 
 	public function login(){
-		/*if($this->_isJSON() && !$this->RequestHandler->isPost() ){
+		$this->myDebugLog("login");
+
+		if($this->_isJSON() && !$this->RequestHandler->isPost() ){
 			$this->redirect(null, 400);
 		}
 		if($this->_isJSON() && $this->RequestHandler->isPost() ){
@@ -44,19 +52,21 @@ class UsersController extends AppController{
 				$token = null;
 			}
 			$this->set(compact('token')); 
-		}*/
+		}
 	}
 
 	public function logout(){
+		$this->myDebugLog("logout");
 		$this->redirect($this->Auth->logout());
 	}
 
 	public function dashboard(){
-
+		$this->myDebugLog("dashboard");
 	}
 
 
 	public function add(){
+		$this->myDebugLog("users -> add");
 		if(!empty($this->data)){
 			$this->User->Create();
 			// password is hashed via security.salt in config/core.php

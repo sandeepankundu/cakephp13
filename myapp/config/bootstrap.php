@@ -57,3 +57,8 @@ Configure::write('API', array(
 	'maximum' => 1,
 	'time'=> '2 minutes' 
 ));
+/**
+* SANDEEPAN
+* Comment: cake log
+*/
+//App::uses('CakeLog', 'Log');
